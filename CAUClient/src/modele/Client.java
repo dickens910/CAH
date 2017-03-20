@@ -198,9 +198,9 @@ class VerifierClient extends Thread {
    
     public void run() {
         while (true && !interrupted()) {
-           ref.ActiverButton();//verifier le nombre de jouer
             //Lire le socket
             ref.lire();
+	    ref.ActiverButton();//verifier le nombre de jouer		
             try {
                 //Laisser une chance d'exécution aux autres threads
                 Thread.sleep(100);
