@@ -1,0 +1,28 @@
+.blackCard {
+		background-color: black;
+		color: white;
+		width: 180px;
+		height: 176px;
+		font-family: sans-serif;
+		font-weight: bold;
+		font-size: 13;
+		border-radius: 10px;
+	}
+	
+	.whiteCard {
+		background-color: white;
+		color: black;
+		width: 180px;
+		height: 176px;
+		font-family: sans-serif;
+		font-weight: bold;
+		font-size: 13;
+		border-radius: 10px;
+		border-style: solid;
+		border-width: 1px;
+		border-color: black;
+	}
+	
+	.inner {
+		padding: 25px 20px;
+	}
