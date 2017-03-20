@@ -129,6 +129,7 @@ public class Serveur {
                     }
 
                     //Vérifier si le client a demandé une déconnexion :
+                   String msg = texte.substring(texte.indexOf(">>") + 2); 
                    if (msg.equals("Activate"))
                     for (int z = 0; z <= nbConnexions; z++) {
                             this.envoyer(msg, z);
