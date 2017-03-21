@@ -92,10 +92,14 @@ public class Partie {
             for (int i = 0; i < playerList.size(); i++) {
                if (i == cZar) {
                     getJoueur(i);
+                    //function select best received white card
+                    //numero carte == numero jouer so 
+                    // getJoueur(numeroCarte).setPts(+1);
                 }
        
             else {
                     getJoueur(i);
+                    //function choose white card
                     }
             }
             if (cZar == playerList.size()) { cZar = 0; }
