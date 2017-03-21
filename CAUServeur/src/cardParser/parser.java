@@ -25,23 +25,15 @@ import model.cartesNoire;
  */
 public class parser {
     
-    private static  String jsonFileB = "C:\\Users\\usager\\Desktop\\blackCards.json";
-    private static  String jsonFileW = "C:\\Users\\usager\\Desktop\\WhiteCards.json";
+    private static  String jsonFileB = "C:\\Users\\usager\\Desktop\\CAH-master\\CAUServeur\\src\\Resource\\blackCards.json";
+    private static  String jsonFileW = "C:\\Users\\usager\\Desktop\\CAH-master\\CAUServeur\\src\\Resource\\whiteCards.json";
     public static ArrayList listeBlanches = new ArrayList();
     public static ArrayList listeNoires = new ArrayList();
-    public static void main (String[]args){
+    public ArrayList ParseWhiteCards(){
         try {
-               FileReader reader = new FileReader(jsonFileB);
                FileReader readerW = new FileReader(jsonFileW);
-                JSONObject jsonObject =  (JSONObject) new JSONParser().parse(reader);
                 JSONObject jsonObjectW =  (JSONObject) new JSONParser().parse(readerW);
-                JSONArray card = (JSONArray)jsonObject.get("black");
                 JSONArray cardW = (JSONArray)jsonObjectW.get("white");
-                 Iterator b = card.iterator();
-                 while (b.hasNext()){
-                    System.out.println(b.next()+ " Black ");
-                    listeNoires.add(b.next());
-                 }
                  Iterator w = cardW.iterator();
                  while (w.hasNext()){
                     System.out.println(w.next() + " white");
@@ -52,6 +44,25 @@ public class parser {
         {
              e.printStackTrace();
         }
-    }   
+        return listeBlanches;
+    
+    }
+    public ArrayList ParseBlackCards(){
+        try {
+               FileReader reader = new FileReader(jsonFileB);
+                JSONObject jsonObject =  (JSONObject) new JSONParser().parse(reader);
+                JSONArray card = (JSONArray)jsonObject.get("black");
+                 Iterator b = card.iterator();
+                 while (b.hasNext()){
+                    System.out.println(b.next()+ " Black ");
+                    listeNoires.add(b.next());
+                 }
+            }
+        catch(Exception e) 
+        {
+             e.printStackTrace();
+        }
+        return listeNoires;
+    }     
     
 }
