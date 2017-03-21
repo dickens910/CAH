@@ -3,16 +3,20 @@ package Server;
 
 import java.net.*;
 import java.io.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import model.Joueur;
+import model.Partie;
+import model.cartesBlanches;
+import model.cartesNoire;
 
 public class Serveur {
 
     private ServerSocket serveurSock;
     private int port;
-
     private final int maxConnexions = 12;
     private Socket[] connexions = new Socket[maxConnexions]; //Maximum de 12 connexions
     private int nbConnexions = -1; //Nombre effectif de connexions
-
     private PrintWriter[] os = new PrintWriter[maxConnexions]; //Les flux de sortie
     private BufferedInputStream[] is = new BufferedInputStream[maxConnexions]; //Les flux d'entr√©e
 
@@ -46,10 +50,10 @@ public class Serveur {
     //Connecter comme Serveur
     private void connecter() {
         try {
-            //Cr√©ation du socket
+            //CrÈation du socket
             serveurSock = new ServerSocket(port);
 
-            //D√©marrer l'inspecteur
+            //DÈmarrer l'inspecteur
             VerifierConnexion vc = new VerifierConnexion(this);
             vc.start();
 
