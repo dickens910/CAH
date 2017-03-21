@@ -19,12 +19,15 @@ import cardParser.Parser;
 
 public class Partie {
     private Joueur[] joueurs;
-    private Stack pileNoire = new Stack();
-    private Stack pileBlanche= new Stack();
-    private int limiteCartes= 10;
+    //private Stack pileNoire = new Stack();
+   // private Stack pileBlanche= new Stack();
+    private int cartesRestantes = 10;
+    public Stack playerList = new Stack(); 
     public static  Parser parser  = new Parser();
     public static ArrayList listeNoires = parser.ParseBlackCards();
     public static ArrayList listeBlancs = parser.ParseWhiteCards();
+    private boolean firstRound = true;
+    public int cZar;
     
     public Partie(){
         this.joueurs= new Joueur[3];
@@ -72,6 +75,37 @@ public class Partie {
             }     
         }
     } 
-    
+    public int findWinner(){
+        int winner = 0 ;
+            for (int i = 0; i < joueurs.length; i++) {
+                if (getJoueur(i).getPoints() > winner)
+                    { winner = 1;}
+        }
+        return winner;
+    }
+    public void round(){
+        if (firstRound) {
+           int cZar = 0 + (int)(Math.random() * ((playerList.size() ) ));
+           firstRound = false;
+        }
+        if (cartesRestantes > 0) {
+            for (int i = 0; i < 10; i++) {
+               if (i == cZar) {
+                    getJoueur(i);
+                }
+       
+            else {
+                    getJoueur(i);
+                    }
+            }
+            if (cZar == playerList.size()) { cZar = 0; }
+            else { cZar++;}
+        }
+        else 
+        {
+            System.out.println("Partie Terminée , le gagnant est "+ getJoueur(findWinner()).getNom()+ " avec " +getJoueur(findWinner()).getPoints() + "points");
+        }
+       cartesRestantes--;
+    }
 }
 
