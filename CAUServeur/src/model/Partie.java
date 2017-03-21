@@ -37,8 +37,16 @@ public class Partie {
     return null;
     }
     
-    public void setJoueur(Joueur j){
-    
+    public void setJoueurs(List joueurs){
+    Iterator itr = joueurs.iterator();
+    int i=0;
+    while(itr.hasNext()){
+        //Joueur j = itr.next();
+        this.joueurs[i]=(Joueur)joueurs.get(i);
+        i++;
+        
+    }
+        
     }
     
     
