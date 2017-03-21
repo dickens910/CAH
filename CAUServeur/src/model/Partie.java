@@ -89,7 +89,7 @@ public class Partie {
            firstRound = false;
         }
         if (cartesRestantes > 0) {
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < playerList.size(); i++) {
                if (i == cZar) {
                     getJoueur(i);
                 }
