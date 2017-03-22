@@ -28,6 +28,7 @@ public class Partie {
     public static ArrayList listeBlancs = parser.ParseWhiteCards();
     private boolean firstRound = true;
     public int cZar;
+    public int joueursCree = 0;
     
     public Partie(){
         this.joueurs= new Joueur[3];
@@ -35,15 +36,31 @@ public class Partie {
      public Partie(int nbJoueurs){
         this.joueurs= new Joueur[nbJoueurs];
     }
-    
+    public void getAll(){
+        for (int i=0;i<joueursCree;i++){
+            System.out.println(joueurs[i].getNom()+" ...ALL... "+i);
+            //System.out.println(this.distributeWhiteCards()+" ...Cartes... "+i);
+            joueurs[i].setCartes(distributeWhiteCards());
+            System.out.println(joueurs[i].getCartes()+" ...Cartes... "+i);
+
+        }
+    }
     public Joueur getJoueur(int numero){
     for (int i=0;i<joueurs.length;i++){
         if (joueurs[i].getNumero()==numero)
             return joueurs[i];
+        }
+      return null;
     }
-    return null;
+    public void add(Joueur j){;
+       if (joueursCree < joueurs.length){
+        if(this.joueurs[joueursCree]==null){ //case accepts twice
+                this.joueurs[joueursCree] = j;
+        joueursCree++;
+        }
+       
+       }
     }
-    
     public void setJoueurs(List joueurs){
     Iterator itr = joueurs.iterator();
     int i=0;
@@ -65,51 +82,77 @@ public class Partie {
             }     
         }
     }
-    public void distributeWhiteCards(){
+    public ArrayList distributeWhiteCards(){
+      ;ArrayList<String> deck = new ArrayList<String>();
         for (int i = 0; i < 10 ;i++) {
             if ( listeBlancs.size()> 0)
             {
                 int nombreAleatoire = 0 + (int)(Math.random() * ((listeBlancs.size() ) ));
-                System.out.println(listeBlancs.get(nombreAleatoire)+"--"+listeBlancs.size());
+                String liste = (listeBlancs.get(nombreAleatoire)+"--"+listeBlancs.size());
+               deck.add(liste);
                 listeBlancs.remove(nombreAleatoire); 
             }     
         }
+        return deck;
     } 
-    public int findWinner(){
-        int winner = 0 ;
-            for (int i = 0; i < joueurs.length; i++) {
-                if (getJoueur(i).getPoints() > winner)
-                    { winner = 1;}
+    public void giveCardsPlayers(){
+        for (int i = 0; i < joueurs.length ; i++) {
+            joueurs[i].setCartes(distributeWhiteCards());
+            //System.out.println( joueurs[i].getCartes().get(i)+ " cartes");
+           // System.out.println( joueurs[i].getNom()+ "joeurs");
         }
-        return winner;
+    }
+    public int findWinner(){
+        int winnerIndex = -1 ;//
+        int pts = 0;
+            for (int i = 0; i < joueurs.length; i++) {
+                if (joueurs[i].getPoints() > pts)
+                    {  
+                        pts = joueurs[i].getPoints();
+                        winnerIndex = i; 
+                    }
+        }
+        return winnerIndex;
     }
     public void round(){
+        giveCardsPlayers();
         if (firstRound) {
-           int cZar = 0 + (int)(Math.random() * ((playerList.size() ) ));
+           int cZar = 0 + (int)(Math.random() * ((joueurs.length ) ));
            firstRound = false;
         }
-        if (cartesRestantes > 0) {
-            for (int i = 0; i < playerList.size(); i++) {
+       while (cartesRestantes > 0) {
+            for (int i = 0; i < joueurs.length; i++) {
                if (i == cZar) {
-                    getJoueur(i);
+                    //joueurs[i];
                     //function select best received white card
                     //numero carte == numero jouer so 
-                    // getJoueur(numeroCarte).setPts(+1);
+                   //getJoueur(numeroCarte)
+                 //  joueurs[i].augmenterPoints();
                 }
        
             else {
-                    getJoueur(i);
+                    //joueurs[i];
                     //function choose white card
                     }
             }
-            if (cZar == playerList.size()) { cZar = 0; }
+            if (cZar == joueurs.length) { cZar = 0; }
             else { cZar++;}
+            cartesRestantes--;
         }
-        else 
-        {
-            System.out.println("Partie Terminée , le gagnant est "+ getJoueur(findWinner()).getNom()+ " avec " +getJoueur(findWinner()).getPoints() + "points");
-        }
-       cartesRestantes--;
+        int i = findWinner(); 
+//        System.out.println("Partie Terminée , le gagnant est "+ joueurs[i].getNom()+ " avec " +joueurs[i].getPoints() + "    points");
     }
+     public static void main(String args[]) {
+           Partie pa = new Partie(3);
+            Joueur j = new Joueur("yves",1,10);
+            Joueur j2 = new Joueur("ali",2,4);
+            Joueur j3 = new Joueur("s",3,9);
+            pa.add(j);
+            pa.add(j2);
+            pa.add(j3);
+            pa.distributeWhiteCards();
+            pa.round();    
+    }
+
 }
 

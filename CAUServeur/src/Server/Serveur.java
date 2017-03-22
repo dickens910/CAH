@@ -4,11 +4,14 @@ package Server;
 import java.net.*;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import model.Joueur;
 import model.Partie;
 import model.cartesBlanches;
 import model.cartesNoire;
+//import org.apache.commons.la;
+
 
 public class Serveur {
 
@@ -19,7 +22,7 @@ public class Serveur {
     private int nbConnexions = -1; //Nombre effectif de connexions
     private PrintWriter[] os = new PrintWriter[maxConnexions]; //Les flux de sortie
     private BufferedInputStream[] is = new BufferedInputStream[maxConnexions]; //Les flux d'entrée
-
+    public static Partie p = new Partie();
     private VerifierServeur vt; //Thread d'inspection du serveur
 
     public Serveur(int p) {
@@ -103,7 +106,11 @@ public class Serveur {
             System.out.println(e);
         }
     }
-
+    public String getPlayerName(String texte){
+        String n = texte.substring(0,texte.indexOf(">>") );
+        String name = n.substring(texte.indexOf("|")+1);
+            return name ;             
+    }
     //==================================================
     //Lire le socket
     //==================================================
@@ -113,7 +120,6 @@ public class Serveur {
             byte buf[] = new byte[500];
             String texte;
             int provenance; //provenance du texte
-
             //Lire toutes les connections
             for (int i = 0; i <= nbConnexions; i++) {
                 //La connection est-elle active?
@@ -121,10 +127,8 @@ public class Serveur {
                     //Oui, lire le socket
                     is[i].read(buf);
                     texte = (new String(buf)).trim();
-
                     //Déterminer la provenance (voir la méthode envoyer() du client):
                     provenance = Integer.parseInt(texte.substring(0, texte.indexOf("|")));
-
                     for (int z = 0; z <= nbConnexions; z++) {
                         //Ne pas renvoyer le message à l'expéditeur
                         if (z != provenance) {
@@ -139,6 +143,18 @@ public class Serveur {
                             this.envoyer(msg, z);
                             System.out.println(msg +" q " +z );
                     }
+                   else if (msg.contains("Accepted")){
+                        Joueur player = new Joueur(getPlayerName(texte),provenance);
+                        player.setCartes(p.distributeWhiteCards());
+                        System.out.println(player.getCartes()+"...plaerCatres");
+                        p.add(player);
+                       // System.out.println(p.getJoueur(p.playerList.size()) +" 444");
+                        //p.getAll(); 
+                        // p.round();
+                        System.out.println(player.getNumero()+" ...  "+provenance);
+                        this.envoyer(player.getCartes().toString().replaceAll(",", "\n"),player.getNumero());
+                       
+                   }
                     System.out.println(msg+"  texte");
                     if (msg.equals("STOP")) {
                         try {

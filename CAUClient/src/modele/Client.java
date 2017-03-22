@@ -105,7 +105,6 @@ public class Client extends Observable {
 
                 //Connecter au serveur
                 clientSock = new Socket(adr, port); //On suppose que le serveur utilise le port 5555.
-
                 is = new BufferedInputStream(clientSock.getInputStream());
                 os = new PrintWriter(clientSock.getOutputStream());
 
@@ -166,6 +165,16 @@ public class Client extends Observable {
                 {
                     setGame("Activate");
                 }
+                if (!msg.contains("Invited"))
+                {
+                    texte = msg;
+                    setChanged();
+                    notifyObservers(texte);
+                }
+                else
+                {
+                    setGame("Invited");
+                }
             }
 
             //Effacer le buffer
@@ -174,8 +183,7 @@ public class Client extends Observable {
         }
     } 
     public void ActiverButton(){
-        System.out.println(activated +"before");
-        if (numConnexion > 2)//starts at 0 
+        if (numConnexion > 0)//starts at 0 
             {
                 if (!activated)//  pour eviter la repetition de cette action
                 {
@@ -184,7 +192,12 @@ public class Client extends Observable {
                     setGame("Activate");
                 }
             }
-         System.out.println(activated +"after");
+    }
+    public void AccepterButton(){
+               this.envoyer("Invited");
+                setGame("Invited");
+                setChanged();
+                notifyObservers("Invited");
     }
 }
 
@@ -200,7 +213,9 @@ class VerifierClient extends Thread {
         while (true && !interrupted()) {
             //Lire le socket
             ref.lire();
-	    ref.ActiverButton();//verifier le nombre de jouer		
+	    
+            ref.ActiverButton();//verifier le nombre de jouer		
+            //ref.AccepterButton();
             try {
                 //Laisser une chance d'exécution aux autres threads
                 Thread.sleep(100);
@@ -210,8 +225,3 @@ class VerifierClient extends Thread {
         }
     }
 }
-
-    Contact GitHub API Training Shop Blog About 
-
-    © 2017 GitHub, Inc. Terms Privacy Security Status Help 
-

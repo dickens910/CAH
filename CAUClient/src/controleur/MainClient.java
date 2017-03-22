@@ -30,7 +30,7 @@ public class MainClient extends JFrame {
     MenuDemarrer mDemarrer = new MenuDemarrer();
     MenuTaches mTaches = new MenuTaches();
     MenuAide mAide = new MenuAide();
-    MenuPartie mPartie = new MenuPartie();
+    //MenuPartie mPartie = new MenuPartie();
     
 
     /**
@@ -46,10 +46,10 @@ public class MainClient extends JFrame {
      */
     public MainClient(String titre) throws HeadlessException {
         super(titre);
-        setSize(300, 600);
+        setSize(700, 600);
 
         mBar.add(mDemarrer);
-        mBar.add(mPartie);
+      //  mBar.add(mPartie);
         mBar.add(mTaches);
         mBar.add(mAide);//**
 
@@ -58,7 +58,7 @@ public class MainClient extends JFrame {
         mDemarrer.setMenuListener(mml);
         mTaches.setMenuListener(mml);
         mAide.setMenuListener(mml);
-        mPartie.setMenuListener(mml);
+       // mPartie.setMenuListener(mml);
         mp = new MainPanel();
         getContentPane().add(mp);
 

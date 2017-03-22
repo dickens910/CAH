@@ -6,6 +6,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -33,6 +34,12 @@ public class Joueur {
         this.nom =name;
         this.numero =num;
         this.points =0;
+        this.cartes = new ArrayList<cartesBlanches>();
+    }
+     public Joueur(String name, int num,int pts){
+        this.nom =name;
+        this.numero =num;
+        this.points =pts;
         this.cartes = new ArrayList<cartesBlanches>();
     }
 
@@ -83,6 +90,20 @@ public class Joueur {
      */
     public ArrayList<cartesBlanches> getCartes() {
         return cartes;
+    }
+    public String getCarteByOrder(int position) {
+           // String carte = this.getCartes().get(position).toString();
+           // carte.toString();
+            //String c = (String)carte;
+           /*List<String> listeCartes = new ArrayList<>(this.getCartes().size());
+            for (cartesBlanches cartes : this.getCartes()) 
+            {
+               listeCartes.add(this.getCartes().toString()); 
+            }
+               String carte = listeCartes.get(position);
+          // String tab [10] = this.getCartes().toArray(tab);*/
+           String carte = "d";
+       return carte;
     }
 
     /**

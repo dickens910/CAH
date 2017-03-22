@@ -1,31 +1,4 @@
 
-Skip to content
-This repository
-
-    Pull requests
-    Issues
-    Gist
-
-    @yves93
-
-1
-0
-
-    0
-
-yves93/HumanityCards
-Code
-Issues 0
-Pull requests 0
-Projects 0
-Wiki
-Pulse
-Graphs
-Settings
-HumanityCards/salonChat/SalonChatClient/src/vue/MainPanel.java
-f3da1fd 4 days ago
-@yves93 yves93 Start game appears on > 2 players
-118 lines (97 sloc) 3.15 KB
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -45,7 +18,7 @@ import modele.*;
 /**
  * @author A. Toudeft
  */
-public class MainPanel extends JPanel implements Observer {
+public class MainPanel extends JPanel implements Observer,ActionListener {
 
 //  Modele :
     Client client;
@@ -85,6 +58,8 @@ public class MainPanel extends JPanel implements Observer {
         add(centerPanel);
         button.setVisible(false);
         setVisible(false);
+        button.addActionListener(this);
+        //this.setSize(400, 6000);
 
     }
 
@@ -111,8 +86,32 @@ public class MainPanel extends JPanel implements Observer {
              if (!button.isVisible()){
                  if (g.equals("Activate"))
                  { button.setVisible(true); }
+                    
              }
+             if (g.equals("Invited")){
+                     button.setText("Accepter");
+                 }
         }
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        
+        if (e.getSource() == button) {
+            if(button.getText() !="Accepter")
+            {
+                // System.out.println("button cliked");
+                client.envoyer(client.getAlias() + "    Vous a inviter");
+                client.AccepterButton();
+                button.setText("Accepted");
+                client.envoyer("Accepted");
+                button.setVisible(false);
+            }
+            else {
+                client.envoyer("Accepted");
+                button.setVisible(false);
+            }
+       }
     }
     
     class MainPanelActionListener implements ActionListener {
@@ -142,8 +141,3 @@ public class MainPanel extends JPanel implements Observer {
         }
     }
 }
-
-    Contact GitHub API Training Shop Blog About 
-
-    © 2017 GitHub, Inc. Terms Privacy Security Status Help 
-
