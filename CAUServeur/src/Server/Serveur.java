@@ -98,9 +98,7 @@ public class Serveur {
 
             //Envoyer le numéro de la connection au client
             this.envoyer(String.valueOf(num), num);
-
             nbConnexions++;
-            
             //Message à l'usager
             System.out.println("Connexion " + num
                     + " sur le port #" + sk.getPort());
@@ -123,6 +121,7 @@ public class Serveur {
             byte buf[] = new byte[500];
             String texte;
             int provenance; //provenance du texte
+            
             //Lire toutes les connections
             for (int i = 0; i <= nbConnexions; i++) {
                 //La connection est-elle active?
@@ -130,24 +129,14 @@ public class Serveur {
                     //Oui, lire le socket
                     is[i].read(buf);
                     texte = (new String(buf)).trim();
-                    //Déterminer la provenance (voir la méthode envoyer() du client):
                     provenance = Integer.parseInt(texte.substring(0, texte.indexOf("|")));
-                    for (int z = 0; z <= nbConnexions; z++) {
-                        //Ne pas renvoyer le message à l'expéditeur
-                        if (z != provenance) {
-                            this.envoyer(texte.substring(texte.indexOf("|") + 1), z);
-                        }
-                    }
-
                     //Vérifier si le client a demandé une déconnexion :
                    String msg = texte.substring(texte.indexOf(">>") + 2); 
                    if (msg.equals("Activate"))
                     for (int z = 0; z <= nbConnexions; z++) {
                             this.envoyer(msg, z);
-                            System.out.println(msg +" q " +z );
                     }
                    else if (msg.contains("Accepted")){//une parite est accepte 
-                       
                        Joueur player = new Joueur(getPlayerName(texte),provenance);
                         player.setCartes(p.distributeWhiteCards());
                         p.add(player);
@@ -158,14 +147,22 @@ public class Serveur {
                         if (acc){
                             if (game)
                             {
+                               String blacCard = p.pickBlackCard().toString();
                                for (int z = 0; z <= nbConnexions; z++) {
-                                   String blacCard =   p.pickBlackCard().toString();
-                                   this.envoyer(p.pickBlackCard().toString(),z);
+                                   this.envoyer(blacCard,z);
                                 }
                             }
                         }
                    }
-                   
+                   else 
+                   { //Déterminer la provenance (voir la méthode envoyer() du client):
+                        for (int z = 0; z <= nbConnexions; z++) {
+                            //Ne pas renvoyer le message à l'expéditeur
+                            if (z != provenance) {
+                                this.envoyer(texte.substring(texte.indexOf("|") + 1), z);
+                            }
+                        }
+                   }
                     if (msg.equals("STOP")) {
                         try {
                             is[provenance].close();
@@ -179,7 +176,6 @@ public class Serveur {
                             x.printStackTrace();
                         }
                     }
-
                     //Effacer le buffer
                     buf = null;
                 }
