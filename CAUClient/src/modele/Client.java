@@ -146,7 +146,6 @@ public class Client extends Observable {
             String msg;				//Texte lu
             is.read(buf);
             msg = (new String(buf)).trim(); 
-            System.out.println(msg + "modele.Client.lire()");
             //En cours de connection?
             if (getEtat().equals("CONNECTION")) {
                 //oui, obtenir le numéro de la connexion
@@ -196,8 +195,6 @@ public class Client extends Observable {
     public void AccepterButton(){
                this.envoyer("Invited");
                 setGame("Invited");
-                setChanged();
-                notifyObservers("Invited");
     }
 }
 
@@ -213,7 +210,6 @@ class VerifierClient extends Thread {
         while (true && !interrupted()) {
             //Lire le socket
             ref.lire();
-	    
             ref.ActiverButton();//verifier le nombre de jouer		
             //ref.AccepterButton();
             try {
