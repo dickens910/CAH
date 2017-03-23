@@ -59,7 +59,6 @@ public class MainPanel extends JPanel implements Observer,ActionListener {
         button.setVisible(false);
         setVisible(false);
         button.addActionListener(this);
-        //this.setSize(400, 6000);
 
     }
 
@@ -100,7 +99,6 @@ public class MainPanel extends JPanel implements Observer,ActionListener {
         if (e.getSource() == button) {
             if(button.getText() !="Accepter")
             {
-                // System.out.println("button cliked");
                 client.envoyer(client.getAlias() + "    Vous a inviter");
                 client.AccepterButton();
                 button.setText("Accepted");
@@ -126,14 +124,25 @@ public class MainPanel extends JPanel implements Observer,ActionListener {
         public void keyPressed(KeyEvent e) {
             if (e.getKeyCode() == KeyEvent.VK_ENTER) {
                 String s = tSaisie.getText();
-                if (!s.equals("")) {
+                if (s.matches("[0-9]+"))
+                {
+                    int number = Integer.parseInt(s);
+                    if (number < 539 && number > 0 ){
+                        String cardText = taSalon.getText().substring(0,taSalon.getText().indexOf(s)+3 );
+                        String be = String.valueOf(number+1);
+                        String card = cardText.substring(cardText.lastIndexOf(be)+3);
+                        client.envoyer(card);
+                        tSaisie.setText("");
+                    }
+                }    
+                else if (!s.equals("")) {
                     client.envoyer(s);
                     taSalon.append("\n>" + s);
                     tSaisie.setText("");
                 }
+                
             }
         }
-
         public void keyReleased(KeyEvent e) {
         }
 

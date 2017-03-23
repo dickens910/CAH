@@ -38,11 +38,7 @@ public class Partie {
     }
     public void getAll(){
         for (int i=0;i<joueursCree;i++){
-            System.out.println(joueurs[i].getNom()+" ...ALL... "+i);
-            //System.out.println(this.distributeWhiteCards()+" ...Cartes... "+i);
             joueurs[i].setCartes(distributeWhiteCards());
-            System.out.println(joueurs[i].getCartes()+" ...Cartes... "+i);
-
         }
     }
     public Joueur getJoueur(int numero){
@@ -70,17 +66,17 @@ public class Partie {
             i++;
         }
     }
-   public void pickBlackCard(){
+   public String pickBlackCard(){
          boolean condition = false; // to only get 1 card 
-        while ( !condition) {   
+         String card;  
             if ( listeNoires.size()> 0)
             {
                 int nombreAleatoire = 0 + (int)(Math.random() * ((listeNoires.size() ) ));
                 System.out.println(listeNoires.get(nombreAleatoire)+"--"+listeNoires.size());
                 listeNoires.remove(nombreAleatoire); 
-                condition = true;
-            }     
-        }
+               return card = listeNoires.get(nombreAleatoire).toString() ;      
+            }
+        return "a";
     }
     public ArrayList distributeWhiteCards(){
       ;ArrayList<String> deck = new ArrayList<String>();
@@ -115,7 +111,6 @@ public class Partie {
         return winnerIndex;
     }
     public void round(){
-        giveCardsPlayers();
         if (firstRound) {
            int cZar = 0 + (int)(Math.random() * ((joueurs.length ) ));
            firstRound = false;
@@ -127,10 +122,11 @@ public class Partie {
                     //function select best received white card
                     //numero carte == numero jouer so 
                    //getJoueur(numeroCarte)
-                 //  joueurs[i].augmenterPoints();
+                  // joueurs[i].augmenterPoints();
                 }
        
             else {
+                   
                     //joueurs[i];
                     //function choose white card
                     }
@@ -139,10 +135,10 @@ public class Partie {
             else { cZar++;}
             cartesRestantes--;
         }
-        int i = findWinner(); 
+       // int i = findWinner(); 
 //        System.out.println("Partie Terminée , le gagnant est "+ joueurs[i].getNom()+ " avec " +joueurs[i].getPoints() + "    points");
     }
-     public static void main(String args[]) {
+    /* public static void main(String args[]) {
            Partie pa = new Partie(3);
             Joueur j = new Joueur("yves",1,10);
             Joueur j2 = new Joueur("ali",2,4);
@@ -152,7 +148,7 @@ public class Partie {
             pa.add(j3);
             pa.distributeWhiteCards();
             pa.round();    
-    }
+    }*/
 
 }
 

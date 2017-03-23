@@ -23,6 +23,9 @@ public class Serveur {
     private PrintWriter[] os = new PrintWriter[maxConnexions]; //Les flux de sortie
     private BufferedInputStream[] is = new BufferedInputStream[maxConnexions]; //Les flux d'entrée
     public static Partie p = new Partie();
+    public boolean game  = false; //game is started
+    public boolean acc = false;// game is accepted
+    public int conexionsAccepted = -1;
     private VerifierServeur vt; //Thread d'inspection du serveur
 
     public Serveur(int p) {
@@ -143,19 +146,26 @@ public class Serveur {
                             this.envoyer(msg, z);
                             System.out.println(msg +" q " +z );
                     }
-                   else if (msg.contains("Accepted")){
-                        Joueur player = new Joueur(getPlayerName(texte),provenance);
-                        player.setCartes(p.distributeWhiteCards());
-                        System.out.println(player.getCartes()+"...plaerCatres");
-                        p.add(player);
-                       // System.out.println(p.getJoueur(p.playerList.size()) +" 444");
-                        //p.getAll(); 
-                        // p.round();
-                        System.out.println(player.getNumero()+" ...  "+provenance);
-                        this.envoyer(player.getCartes().toString().replaceAll(",", "\n"),player.getNumero());
+                   else if (msg.contains("Accepted")){//une parite est accepte 
                        
+                       Joueur player = new Joueur(getPlayerName(texte),provenance);
+                        player.setCartes(p.distributeWhiteCards());
+                        p.add(player);
+                        acc = true;
+                        conexionsAccepted++;
+                        if (conexionsAccepted==nbConnexions){game = true;} //start game when all are conected
+                        this.envoyer(player.getCartes().toString().replaceAll(",", "\n"),player.getNumero());
+                        if (acc){
+                            if (game)
+                            {
+                               for (int z = 0; z <= nbConnexions; z++) {
+                                   String blacCard =   p.pickBlackCard().toString();
+                                   this.envoyer(p.pickBlackCard().toString(),z);
+                                }
+                            }
+                        }
                    }
-                    System.out.println(msg+"  texte");
+                   
                     if (msg.equals("STOP")) {
                         try {
                             is[provenance].close();
@@ -167,14 +177,14 @@ public class Serveur {
                             System.out.println("TODO : Deconnecter " + texte);
                         } catch (Exception x) {
                             x.printStackTrace();
-}
+                        }
                     }
 
                     //Effacer le buffer
                     buf = null;
-
                 }
             }
+             
         } catch (IOException e) {
         }
     }

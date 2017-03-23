@@ -91,20 +91,6 @@ public class Joueur {
     public ArrayList<cartesBlanches> getCartes() {
         return cartes;
     }
-    public String getCarteByOrder(int position) {
-           // String carte = this.getCartes().get(position).toString();
-           // carte.toString();
-            //String c = (String)carte;
-           /*List<String> listeCartes = new ArrayList<>(this.getCartes().size());
-            for (cartesBlanches cartes : this.getCartes()) 
-            {
-               listeCartes.add(this.getCartes().toString()); 
-            }
-               String carte = listeCartes.get(position);
-          // String tab [10] = this.getCartes().toArray(tab);*/
-           String carte = "d";
-       return carte;
-    }
 
     /**
      * @param cartes the cartes to set
