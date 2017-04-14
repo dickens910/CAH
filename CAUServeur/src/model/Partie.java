@@ -11,7 +11,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Stack;
-import cardParser.Parser;
+import cardParser.parser;
 /**
  *
  * @author ali
@@ -19,11 +19,9 @@ import cardParser.Parser;
 
 public class Partie {
     private Joueur[] joueurs;
-    //private Stack pileNoire = new Stack();
-   // private Stack pileBlanche= new Stack();
     private int cartesRestantes = 10;
     public Stack playerList = new Stack(); 
-    public static  Parser parser  = new Parser();
+    public static  parser parser  = new parser();
     public static ArrayList listeNoires = parser.ParseBlackCards();
     public static ArrayList listeBlancs = parser.ParseWhiteCards();
     private boolean firstRound = true;
@@ -61,7 +59,6 @@ public class Partie {
     Iterator itr = joueurs.iterator();
     int i=0;
         while(itr.hasNext()){
-            //Joueur j = itr.next();
             this.joueurs[i]=(Joueur)joueurs.get(i);
             i++;
         }
