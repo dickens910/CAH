@@ -11,7 +11,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Stack;
-import cardParser.Parser;
+import cardParser.parser;
 /**
  *
  * @author ali
@@ -23,7 +23,7 @@ public class Partie {
    // private Stack pileBlanche= new Stack();
     private int cartesRestantes = 10;
     public Stack playerList = new Stack(); 
-    public static  Parser parser  = new Parser();
+    public static  parser parser  = new parser();
     public static ArrayList listeNoires = parser.ParseBlackCards();
     public static ArrayList listeBlancs = parser.ParseWhiteCards();
     private boolean firstRound = true;
