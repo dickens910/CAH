@@ -1,5 +1,7 @@
 package com.atoudeft.web.modele;
 
+import javax.mail.internet.*;
+
 public class Client {
 
 	private String  nom, courriel, mdp;
@@ -47,9 +49,20 @@ public class Client {
     public String getVille() {
         return mdp;
     }
-
+    //Valider le courriel avant de l'affecter a l'objet.
     public void setCourriel(String courriel) {
+        boolean isValid= false;
+        try{
+        InternetAddress adresse =  new InternetAddress(courriel);
+        adresse.validate();
+        isValid=true;
         this.courriel = courriel;
+        }
+        catch(AddressException e){
+        System.out.println("You are in catch block -- Exception Occurred for: " + courriel);
+        this.courriel=this.courriel;
+        }
+        
     }
 
     public void setVille(String mdp) {
