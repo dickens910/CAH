@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.mail.internet.*;
 
 /**
  *
@@ -43,6 +44,8 @@ public class Signup extends HttpServlet {
         String  u = request.getParameter("usager"),
                 p = request.getParameter("mdp"),
                 c = request.getParameter("courriel");
+        //validation du courriel avec la fonction plus bas.
+        if (EmailValidator(c)){
         try {
             //Chargement du pilote :
             Class.forName(this.getServletContext().getInitParameter("piloteJdbc"));
@@ -61,9 +64,21 @@ public class Signup extends HttpServlet {
         // s'il n'y a pas d'erreurs, envoie directement à la page login 
         RequestDispatcher r = this.getServletContext().getRequestDispatcher("/login.jsp");
         r.forward(request, response);
+        }
+        
     }
    
-
+    protected boolean EmailValidator(String courriel){
+    boolean isValid= false;
+    try{
+        InternetAddress adresse = new InternetAddress(courriel);
+        adresse.validate();
+        isValid=true;
+    }
+    catch(AddressException e){
+    }
+    return isValid;
+    }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
