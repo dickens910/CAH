@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+    <display-name>Correction du labo</display-name>
+    <context-param>
+        <description>La chaine du pilote JDBC utilisé pour se connecter à la BD.</description>
+        <param-name>piloteJdbc</param-name>
+        <param-value>com.mysql.jdbc.Driver</param-value>
+    </context-param>
+    <context-param>
+        <param-name>Cards</param-name>
+        <param-value>true</param-value>
+    </context-param>
+    <context-param>
+        <description>L'URL de la BD pour les connexions JDBC.</description>
+        <param-name>urlBd</param-name>
+        <param-value>jdbc:mysql://localhost/cah?user=root&amp;password=root</param-value>
+    </context-param>
+    <servlet>
+        <servlet-name>controleur</servlet-name>
+        <servlet-class>com.atoudeft.web.controleur.ControleurFrontal</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>login</servlet-name>
+        <servlet-class>com.atoudeft.web.mvc.servlet.Login</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>logout</servlet-name>
+        <servlet-class>com.atoudeft.web.mvc.servlet.Logout</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>controleur</servlet-name>
+        <url-pattern>*.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>login</servlet-name>
+        <url-pattern>/signin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>logout</servlet-name>
+        <url-pattern>/signout</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+</web-app>

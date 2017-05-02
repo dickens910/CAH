@@ -1,0 +1,191 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 2017-04-24, 21:38:49
+    Author     : usager
+*/
+.play{
+    display : none;
+}
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+tr:nth-child(even) {
+    background-color: #df5ddd;
+}
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 80%;
+    background-color:  #d9d9d9;
+}
+
+#wrapper {
+    width: 960px;
+    margin: auto;
+    text-align: left;
+    color: #d9d9d9;
+}
+
+p {
+    text-align: left;
+}
+
+.button {
+    display: inline;
+    color: #fff;
+    background-color: #f2791d;
+    padding: 8px;
+    margin: auto;
+    border-radius: 8px;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    box-shadow: none;
+    border: none;
+}
+
+.button:hover {
+    background-color: #ffb15e;
+}
+.button a, a:visited, a:hover, a:active {
+    color: #fff;
+    text-decoration: none;
+}
+
+#addClient {
+    text-align: center;
+    width: 960px;
+    margin: auto;
+    margin-bottom: 10px;
+}
+
+#addClientForm {
+    text-align: left;
+    width: 400px;
+    margin: auto;
+    padding: 10px;
+}
+
+#addClientForm span {
+    display: block;
+}
+
+#content {
+    margin: auto;
+    width: 960px;
+}
+
+.client {
+    width: 180px;
+    height: 110px;
+    margin: 10px;
+    padding: 16px;
+    color: #fff;
+    vertical-align: top;
+    border-radius: 8px;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    display: inline-block;
+}
+
+.client.off {
+    background-color: #c8cccf;
+}
+
+.client span {
+    display: block;
+}
+
+.clientName {
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 12px;
+}
+
+.removeClient {
+    margin-top: 12px;
+    text-align: center;
+}
+
+.client.Game {
+    background-color: #5eb85e;
+}
+
+.client.Game a:hover {
+    color: #a1ed82;
+}
+
+.client .Games {   
+    background-color: #0f90d1;
+}
+
+.client .Games a:hover {
+    color: #4badd1;
+}
+
+.client.Lights {
+    background-color: #c2a00c;
+}
+
+.client.Lights a:hover {
+    color: #fad232;
+}
+
+.client.Other {
+    background-color: #db524d;
+}
+
+.client.Other a:hover {
+    color: #ff907d;
+}
+
+.client a {
+    text-decoration: none;
+}
+
+.client a:visited, a:active, a:hover {
+    color: #fff;
+}
+
+.client a:hover {
+    text-decoration: underline;
+}
+.blackCard {
+		background-color: black;
+		color: white;
+		width: 180px;
+		height: 176px;
+		font-family: sans-serif;
+		font-weight: bold;
+		font-size: 13;
+		border-radius: 10px;
+                float: left;
+	}
+	
+	.whiteCard {
+		background-color: white;
+		color: black;
+		width: 180px;
+		height: 176px;
+		font-family: sans-serif;
+		font-weight: bold;
+		font-size: 13;
+		border-radius: 10px;
+		border-style: solid;
+		border-width: 1px;
+		border-color: black;
+                float: left;
+	}
+	
+	.inner {
+		padding: 25px 20px;
+}
