@@ -5,6 +5,7 @@
  */
 
 //JQUERY
+
     $(document).keypress(function(e) { 
         if(e.which === 13) {
             sendMsg();
@@ -21,6 +22,11 @@ function onMessage(event) {
     if (Client.action === "add") {
         printClientElement(Client);
     }
+    if (Client.action === "number") {
+      var a =  $("#hiddenInput").val(Client.id);
+          alert(Client.id);
+    }
+    
     if (Client.action === "join") {
         printClientElement(Client);
     }
@@ -71,8 +77,13 @@ function toggleClient(element) {
     };
     socket.send(JSON.stringify(ClientAction));
 }
+function numbers() {
+    var ClientAction = {
+        action: "number"
+    };
+    socket.send(JSON.stringify(ClientAction));
+}
 function toggleJoinClient(element) {
-  alert();
     var id = element;
     var ClientAction = {
         action: "join",

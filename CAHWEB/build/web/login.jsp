@@ -16,6 +16,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <script src="websocket.js"></script>
         <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
         <title>Exemple de MVC</title>
         <style type="text/css">
@@ -23,6 +24,7 @@
         </style>
     </head>
     <body>
+
 <%
         System.out.println(" login " );
         if (request.getAttribute("message")!=null)
@@ -36,10 +38,9 @@
         <form action="login.do" method="post">
             Username : <input type="text" name="username" value="<%=us1%>" /><br />
             Password : <input type="password" name="password" />
-            <input type="hidden" name="action" value="login" /><br />
+            <input type="hidden" name="action" value="login"  /><br />
             <input type="submit" value=" Connexion " />
             <a href="SignUp.jsp">S'inscrirre</a>
-            
         </form> 
             <br>
             <br>
@@ -47,6 +48,6 @@
             <input type="hidden" name="action" value="regarder" /><br />
             <input type="submit" value=" Visionner " />  
         </form> 
-    
+         
     </body>
 </html>

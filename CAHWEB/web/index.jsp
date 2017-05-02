@@ -4,6 +4,7 @@
     Author     : moumene
 --%>
 
+<%@page import="java.util.Random"%>
 <%@page import="com.atoudeft.web.modele.cartesNoire"%>
 <%@page import="com.atoudeft.web.modele.cartesBlanches"%>
 <%@page import="java.util.ArrayList"%>
@@ -19,8 +20,13 @@
     {
        
 %>
-        <jsp:forward page="login.jsp" />
+<script> numbers();</script>   
+    <jsp:forward page="login.jsp" />
+    <input type="hidden" id="hiddenInput" name="hiddenInput" value=>
 <%
+            String numberCards =request.getParameter("hiddenInput");
+            request.setAttribute("cards", numberCards); 
+            System.out.println("numberCards 0" + numberCards);
     }
 %>
 
@@ -76,12 +82,20 @@ tr:nth-child(even) {
             List<Client> listeClients =  (List<Client>)request.getAttribute("liste");    
             List<cartesBlanches> listewCards =  (List<cartesBlanches>)request.getAttribute("Wcards"); 
             List<cartesNoire> listeBCards =  (List<cartesNoire>)getServletContext().getAttribute("Bcards"); 
-           for (int i = 0; i < 5; i++) {
-                    out.println("<div  class='whiteCard'     ><div class='inner'>"+ listeBCards.get(i).getTexte() +"</div></div>" );                
-            }
-           for (int i = 0; i < 5; i++) {
-                    out.println("<div class='blackCard' ><div class='inner'>"+ listewCards.get(i).getTexte() +"</div></div>" );                
-            }
+           for (int i = 0; i < 3; i++) {
+                Random generator = new Random(); 
+                int rnd = generator.nextInt(listeBCards.size()) + 1;
+                    out.println("<div  class='whiteCard'     ><div class='inner'>"+ listeBCards.get(rnd).getTexte() +"</div></div>" );                
+                    listeBCards.remove(rnd);
+           }
+            out.print("<br>");
+           for (int i = 0; i < 3; i++) {
+                 Random generator = new Random();
+                int rnd = generator.nextInt(listewCards.size()) + 1;
+                    out.println("<div class='blackCard' ><div class='inner'>"+ listewCards.get(rnd).getTexte() +"</div></div>" );                
+                    listewCards.remove(rnd);
+
+           }
             int pts ;  
             String nom;
             if(session.getAttribute("regarderName")=="true")
@@ -113,9 +127,6 @@ tr:nth-child(even) {
         %>
         
              <div id="wrapper">
-            <h1>Java Websocket Home</h1>
-            <p>Welcome to the Java WebSocket Home. Click the Add a client button to start adding clients.</p>
-            <br />
             <div id="butonsDiv">
                 <input type="button" class="button" id="ToggleGame" value="Request Game" onclick='requestGame()'>
             </div>    

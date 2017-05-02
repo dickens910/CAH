@@ -53,6 +53,10 @@ public class Server {
                 Client.setStatus("On");
                 sessionHandler.addClient(Client); 
             }
+            if ("number".equals(jsonMessage.getString("action"))) {
+                System.out.println("com.websocket.server.Server.handleMessage()");
+                sessionHandler.getNumberOfCnx(); 
+            }
 
             if ("remove".equals(jsonMessage.getString("action"))) {
                 int id = (int) jsonMessage.getInt("id");

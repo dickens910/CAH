@@ -24,7 +24,7 @@ import javax.json.spi.JsonProvider;
 import javax.websocket.Session;
 
 @ApplicationScoped
-public class SessionHandler {
+public class SessionHandler {  
     //store Clients and active sessions 
     public static int ClientId = 0; // = number of conections + 1
     private final Set<Session> sessions = new HashSet<>();
@@ -51,6 +51,16 @@ public class SessionHandler {
         //client.add(client);
         ClientId++; 
         JsonObject addMessage = createAddMessage(client,"add");
+        sendToAllConnectedSessions(addMessage);
+    }
+     public void getNumberOfCnx(){
+        System.out.println("com.websocket.server.SessionHandler.getNumberOfCnx()");
+        Client client = new Client();
+         client.setId(ClientId);
+         ClientId++;
+         client.setStatus("status");
+         client.setNom("nom");
+        JsonObject addMessage = createAddMessage(client,"number");
         sendToAllConnectedSessions(addMessage);
     }
     public void sendClientMessage(Client client) { 
@@ -122,7 +132,6 @@ public class SessionHandler {
             sendToSession(session, message);
         }
     }
-
     private void sendToSession(Session session, JsonObject message) {
         try {
             session.getBasicRemote().sendText(message.toString());

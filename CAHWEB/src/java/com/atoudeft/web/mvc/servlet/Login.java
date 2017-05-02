@@ -78,31 +78,34 @@ public class Login extends HttpServlet {
                 if (res.getString("mdp").equals(p))
                 {
                     //connexion OK
+
                      ClientDao cDao = new ClientDao(cnx) ;
                     List<Client> listeClients = new ArrayList<>();
                     listeClients =  cDao.findAll();
-                            
+        
                     request.setAttribute("liste", listeClients);   
                     HttpSession session = request.getSession(true);
                     session.setAttribute("connecte", u);
-                    
+                   
+                   // int number = (int) request.getAttribute("cards");
+                    System.out.println("com.atoudeft.web.mvc.servlet.Login.processRequest() "+ request.getAttribute("cards"));
+
+                  //  if ( number == 0)
+                  { 
+
                     WhiteCardsDao wcDao = new WhiteCardsDao(cnx);
                     List<cartesBlanches> listeWCards = new ArrayList<>();
                     listeWCards = wcDao.findCards();
                     request.setAttribute("Wcards", listeWCards);   
                     getServletContext().setAttribute("Wcards", listeWCards);
                     
-                    ServletContext context = (ServletContext) getServletContext().getAttribute("Bcards");
-                   
-                    if (context != null){
                         BlackCardsDao bcDao = new BlackCardsDao(cnx);
                         List<cartesNoire> listeBCards = new ArrayList<>();
                         listeBCards = bcDao.findCards();
                         request.setAttribute("Bcards", listeBCards); 
-                        getServletContext().setAttribute("Bcards", listeBCards);
-
-                    }
-                    
+                        getServletContext().setAttribute("Bcards", listeBCards); 
+                        
+                    }    
                     RequestDispatcher r = this.getServletContext().getRequestDispatcher("/index.jsp");
                     r.forward(request, response);
                     return;
